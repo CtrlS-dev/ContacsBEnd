@@ -1,20 +1,26 @@
-name: deployment pipeline
+name: deployment-pipeline  # Corrected naming convention
 
 on:
   push:
-      branches:
-          -main
+    branches:
+      - main
+
 jobs:
   simple_deployment_pipeline:
-    if: ${{ github.event_name == 'push'}}
-    runs-on: ubuntu-24.04
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-with:
-  node-version:20.12.2
-  - name: Instala las dependencias
-    run: npm install
-  - name: Checkear codigo
-    run: npm run lint
-  - name: Testear BackEnd
-    run: npm run test
+    if: ${{ github.event.name == 'push' }}  # Corrected syntax for event name
+    runs-on: ubuntu-latest  # Consider using the latest stable Ubuntu version for broader compatibility
+
+    steps:
+      - uses: actions/checkout@v3  # Use the recommended v3 for checkout (optional)
+      - uses: actions/setup-node@v3  # Use the recommended v3 for Node.js setup
+        with:
+          node-version: 20.12.2  # Maintain desired Node.js version
+
+      - name: Install Dependencies
+        run: npm install  # Clear and concise step name
+
+      - name: Lint Code
+        run: npm run lint  # Consistent naming convention
+
+      - name: Test Backend
+        run: npm run test  # Consistent naming convention
